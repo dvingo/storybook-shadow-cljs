@@ -1,0 +1,32 @@
+{:deps
+ {:aliases [:dev]}
+
+ :nrepl
+ {:port 9000}
+
+ :builds
+ {:main        {:target            :browser
+                :output-dir        "resources/public/js/main"
+                :asset-path        "/js/main"
+                :module-hash-names true
+                :modules           {:main {:init-fn ex.storybook-shadow-cljs.client.client-entry/init
+                                           :entries [ex.storybook-shadow-cljs.client.client-entry]}}
+                ;; guardrails checks only during dev
+                :dev               {:compiler-options {:external-config {:guardrails {}
+                                                                         :fulcro     {:wrap-inputs? false}}}
+                                    :closure-defines  {
+                                                       ex.storybook-shadow-cljs.client.application/LOG-RESPONSES true
+                                                       ex.storybook-shadow-cljs.client.client-entry/LOG_LEVEL    "debug"}}
+                :devtools          {:after-load ex.storybook-shadow-cljs.client.client-entry/refresh
+                                    :preloads   [;; if using the chrome extension:
+                                                 com.fulcrologic.fulcro.inspect.preload
+
+                                                 ;; if using the electron app:
+                                                 ;com.fulcrologic.fulcro.inspect.websocket-preload
+
+                                                 ex.storybook-shadow-cljs.client.development-preload]
+                                    :http-port 8021
+                                    :http-resource-root "public"
+                                    :http-root          "resources/public/"
+                                    }}
+}}
