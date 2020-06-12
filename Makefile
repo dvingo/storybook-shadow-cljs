@@ -20,7 +20,7 @@ shadow-server:
 fe:
 > bash ./scripts/start_dev.sh
 
-prod-build: fe-release 
+prod-build: fe-release
 
 shadow-report:
 > yarn shadow-cljs run shadow.cljs.build-report $(fe-module) fe-bundle-report.html
@@ -30,16 +30,8 @@ watch-$(fe-module):
 
 watch: watch-$(fe-module)
 
-
-
-
-watch-all: watch-$(fe-module)
-
 fe-release:
 > yarn shadow-cljs release $(fe-module)
 
 
 .PHONY: fe fe-release prod-build shadow-report watch-$(fe-module) watch shadow-server
-
-
-

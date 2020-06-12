@@ -17,6 +17,13 @@
                                     :closure-defines  {
                                                        ex.storybook-shadow-cljs.client.application/LOG-RESPONSES true
                                                        ex.storybook-shadow-cljs.client.client-entry/LOG_LEVEL    "debug"}}
+
+
+                :stories {:target :npm-module
+                          :output-dir "builds/storybook"
+                          :devtools {:enabled false}
+                          :entries [app-stories]}
+
                 :devtools          {:after-load ex.storybook-shadow-cljs.client.client-entry/refresh
                                     :preloads   [;; if using the chrome extension:
                                                  com.fulcrologic.fulcro.inspect.preload
